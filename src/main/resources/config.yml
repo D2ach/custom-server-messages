@@ -1,0 +1,65 @@
+enabled: true
+send-to-console: false
+
+join:
+  enabled: true
+  lines:
+    - "&#ffffffM&#f2f9fbo&#e5f3f8r&#d8edf4n&#cbe7f0D&#bee1ecr&#b1dbe9e&#a4d5e5a&#97cfe1m&#ffffff | &f<player> 欢迎加入游戏"
+  group-messages:
+    vip:
+      groups:
+        - "vip"
+      lines:
+        - "&#ffffffM&#f2f9fbo&#e5f3f8r&#d8edf4n&#cbe7f0D&#bee1ecr&#b1dbe9e&#a4d5e5a&#97cfe1m&#ffffff | &#f6d390<player> &#f1d394&l华&#edd498&l丽&#e8d49c&l的&#e3d4a0&l登&#ded4a4&l场&l &#dad5a8C&#d5d5aci&#d0d5b0a&#cbd6b4l&#c7d6b9l&#c2d6bdo&#bdd7c1&l~&#b8d7c5&l(&#b3d7c9&l∠&#afd8cd&l・&#aad8d1&lω&#a5d8d5&l＜&#a1d8d9&l）&#9cd9dd&l⌒&#97d9e1&l☆"
+
+first-join:
+  enabled: true
+  lines:
+    - "&#ffffffM&#f2f9fbo&#e5f3f8r&#d8edf4n&#cbe7f0D&#bee1ecr&#b1dbe9e&#a4d5e5a&#97cfe1m&#ffffff |&l &l&#ffce6d&l欢&#fecf6d&l迎&#fecf6c&l新&#fdd06c&l玩&#fdd06b&l家&#ffffff <lp_prefix><player> #f9d368&l进&#f8d468&l入&#f8d467&l服&#f7d567&l务&#f7d566&l器&l &#f6d666&l!"
+    #- "&7当前在线: &f<online>/<max_online>"
+  reward:
+    enabled: true
+    min: 10
+    max: 20
+    button-prefix: "&e新玩家 &f<player> &e加入了！ "
+    button: "&a&l[点击欢迎]"
+    button-hover: "&7点击欢迎新玩家，首次可获得金币"
+    button-lifetime-minutes: 10
+    player-message: "&a欢迎新玩家 &e<player> &a！你获得了 &e<reward> &a金币。"
+    already-claimed: "&7你已经欢迎过 &e<player> &7了。"
+
+quit:
+  enabled: true
+  lines:
+    - "&#ffffffM&#f2f9fbo&#e5f3f8r&#d8edf4n&#cbe7f0D&#bee1ecr&#b1dbe9e&#a4d5e5a&#97cfe1m&#ffffff | &f<lp_prefix><player> 离开了服务器"
+  group-messages:
+    vip:
+      groups:
+        - "vip"
+      lines:
+        - "&#ffffffM&#f2f9fbo&#e5f3f8r&#d8edf4n&#cbe7f0D&#bee1ecr&#b1dbe9e&#a4d5e5a&#97cfe1m&#ffffff | &#f6d390<lp_prefix><player> &#ebd499&l落&#e1d4a2&l下&#d6d5ab&l帷&#ccd6b4&l幕&#c1d6bd┭&#b7d7c6┮&#acd8cf﹏&#a2d8d8┭&#97d9e1┮"
+
+kick:
+  enabled: true
+  lines:
+    - "&6[x] &f<lp_prefix><player> 被移出了服务器"
+    - "&7原因: &f<reason>"
+
+messages:
+  prefix: "&b[服务器消息] &r"
+  reloaded: "&aCustomServerMessages 配置已重载。"
+  no-permission: "&c你没有权限使用这个命令。"
+  status:
+    - "&6CustomServerMessages 状态:"
+    - "&7enabled: &f{enabled}"
+    - "&7send-to-console: &f{send_to_console}"
+    - "&7luckperms: &f{luckperms}"
+    - "&7cmi: &f{cmi}"
+    - "&7vault: &f{vault}"
+    - "&7join.enabled: &f{join_enabled}"
+    - "&7join.group-rules: &f{join_group_rules}"
+    - "&7first-join.enabled: &f{first_join_enabled}"
+    - "&7first-join.reward: &f{first_join_reward}"
+    - "&7quit.enabled: &f{quit_enabled}"
+    - "&7quit.group-rules: &f{quit_group_rules}"
+    - "&7kick.enabled: &f{kick_enabled}"
