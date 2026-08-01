@@ -1,6 +1,6 @@
 name: CustomServerMessages
 version: ${version}
-main: com.codexmc.customservermessages.CustomServerMessagesPlugin
+main: top.morndream.customservermessages.CustomServerMessagesPlugin
 description: Customizes join, first-join, quit, and kick broadcast messages on Paper and Folia.
 author: ohmlnw007, Xin_Yu_Han
 api-version: "1.21"

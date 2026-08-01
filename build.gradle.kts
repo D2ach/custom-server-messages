@@ -2,7 +2,7 @@ plugins {
     java
 }
 
-group = "com.codexmc"
+group = "top.morndream"
 version = "1.0.0"
 
 repositories {

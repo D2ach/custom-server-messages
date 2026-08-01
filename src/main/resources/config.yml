@@ -21,12 +21,10 @@ first-join:
     enabled: true
     min: 10
     max: 20
-    button-prefix: "&e新玩家 &f<player> &e加入了！ "
     button: "&a&l[点击欢迎]"
-    button-hover: "&7点击欢迎新玩家，首次可获得金币"
+    button-hover: "&7首次点击可获得金币"
     button-lifetime-minutes: 10
-    player-message: "&a欢迎新玩家 &e<player> &a！你获得了 &e<reward> &a金币。"
-    already-claimed: "&7你已经欢迎过 &e<player> &7了。"
+    player-message: "&a你获得了 &e<reward> &a金币。"
 
 quit:
   enabled: true
@@ -40,7 +38,7 @@ quit:
         - "&#ffffffM&#f2f9fbo&#e5f3f8r&#d8edf4n&#cbe7f0D&#bee1ecr&#b1dbe9e&#a4d5e5a&#97cfe1m&#ffffff | &#f6d390<lp_prefix><player> &#ebd499&l落&#e1d4a2&l下&#d6d5ab&l帷&#ccd6b4&l幕&#c1d6bd┭&#b7d7c6┮&#acd8cf﹏&#a2d8d8┭&#97d9e1┮"
 
 kick:
-  enabled: true
+  enabled: false
   lines:
     - "&6[x] &f<lp_prefix><player> 被移出了服务器"
     - "&7原因: &f<reason>"
