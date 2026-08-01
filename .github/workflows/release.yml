@@ -1,10 +1,9 @@
 name: Release
 
 on:
-  workflow_dispatch:
   push:
-    tags:
-      - "v*.*.*"
+    branches: [main, master]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -26,12 +25,7 @@ jobs:
         id: ver
         run: |
           chmod +x gradlew
-          if [ "${{ github.event_name }}" = "push" ]; then
-            TAG="${GITHUB_REF_NAME}"
-            VERSION="${TAG#v}"
-          else
-            VERSION="$(./gradlew properties -q | awk '/^version:/ { print $2; exit }')"
-          fi
+          VERSION="$(./gradlew properties -q | awk '/^version:/ { print $2; exit }')"
           echo "version=${VERSION}" >> "$GITHUB_OUTPUT"
           echo "tag=v${VERSION}" >> "$GITHUB_OUTPUT"
           echo "Using version ${VERSION}"
