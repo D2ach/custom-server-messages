@@ -15,7 +15,7 @@ join:
 first-join:
   enabled: true
   lines:
-    - "&#ffffffM&#f2f9fbo&#e5f3f8r&#d8edf4n&#cbe7f0D&#bee1ecr&#b1dbe9e&#a4d5e5a&#97cfe1m&#ffffff |&l &l&#ffce6d&l欢&#fecf6d&l迎&#fecf6c&l新&#fdd06c&l玩&#fdd06b&l家&#ffffff <lp_prefix><player> #f9d368&l进&#f8d468&l入&#f8d467&l服&#f7d567&l务&#f7d566&l器&l &#f6d666&l!"
+    - "&#ffffffM&#f2f9fbo&#e5f3f8r&#d8edf4n&#cbe7f0D&#bee1ecr&#b1dbe9e&#a4d5e5a&#97cfe1m&#ffffff | &#ffce6d&l欢&#fecf6d&l迎&#fecf6c&l新&#fdd06c&l玩&#fdd06b&l家&#ffffff <lp_prefix><player> &#f9d368&l进&#f8d468&l入&#f8d467&l服&#f7d567&l务&#f7d566&l器&l &#f6d666&l!"
     #- "&7当前在线: &f<online>/<max_online>"
   reward:
     enabled: true
