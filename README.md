@@ -1,5 +1,3 @@
-<div align="center">
-
 # CustomServerMessages
 
 **Paper / Folia 服务器进出服消息定制插件**
@@ -13,9 +11,7 @@
 [![Version](https://img.shields.io/badge/Version-1.0.0-blue)](https://github.com/D2ach/CustomServerMessages)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-**Author:** [ohmlnw007](https://github.com)
-
-</div>
+**Author:** ohmlnw007, Xin_Yu_Han
 
 ---
 
@@ -196,8 +192,4 @@ Issue、Pull Request 都欢迎。提交前请确保：
 
 ---
 
-<div align="center">
-
-Made for Paper / Folia · Author **ohmlnw007** · MIT License
-
-</div>
+Author: **ohmlnw007**, **Xin_Yu_Han** · MIT License
