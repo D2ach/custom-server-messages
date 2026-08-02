@@ -134,25 +134,23 @@ public final class PlayerMessageListener implements Listener {
             vault.prepareWelcomeClaims(joinedId);
         }
 
-        for (int index = 0; index < lines.size(); index++) {
-            Component base = serializer.deserialize(replacePlayerPlaceholders(lines.get(index), joinedPlayer, reason));
-            boolean lastLine = index == lines.size() - 1;
-
+        for (String rawLine : lines) {
+            Component base = serializer.deserialize(replacePlayerPlaceholders(rawLine, joinedPlayer, reason));
             for (Player online : Bukkit.getOnlinePlayers()) {
-                if (canAttachButton
-                    && lastLine
-                    && !online.getUniqueId().equals(joinedId)
-                    && !vanish.isVanished(online)) {
-                    online.sendMessage(base.append(Component.space()).append(
-                        vault.buildWelcomeButton(settings, joinedId, joinedName)
-                    ));
-                } else {
-                    online.sendMessage(base);
-                }
+                online.sendMessage(base);
             }
-
             if (settings.sendToConsole()) {
                 plugin.getLogger().info(plainText(base));
+            }
+        }
+
+        // Button on its own line below the welcome message (not appended to the same line).
+        if (canAttachButton) {
+            Component button = vault.buildWelcomeButton(settings, joinedId, joinedName);
+            for (Player online : Bukkit.getOnlinePlayers()) {
+                if (!online.getUniqueId().equals(joinedId) && !vanish.isVanished(online)) {
+                    online.sendMessage(button);
+                }
             }
         }
     }
