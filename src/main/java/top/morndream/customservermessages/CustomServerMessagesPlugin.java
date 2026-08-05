@@ -18,11 +18,13 @@ public final class CustomServerMessagesPlugin extends JavaPlugin implements Comm
     private final VanishHook vanishHook = new VanishHook();
     private final LuckPermsHook luckPermsHook = new LuckPermsHook();
     private VaultHook vaultHook;
+    private WelcomeService welcomeService;
     private PlayerMessageListener messageListener;
 
     @Override
     public void onEnable() {
         vaultHook = new VaultHook(getLogger());
+        welcomeService = new WelcomeService(this);
         saveDefaultConfig();
         reloadAll();
         messageListener = new PlayerMessageListener(this);
@@ -33,11 +35,18 @@ public final class CustomServerMessagesPlugin extends JavaPlugin implements Comm
         Objects.requireNonNull(getCommand("customservermessages"), "Command customservermessages is not defined in plugin.yml")
             .setTabCompleter(this);
 
+        WelcomeCommand welcomeCommand = new WelcomeCommand(this);
+        Objects.requireNonNull(getCommand("welcome"), "Command welcome is not defined in plugin.yml")
+            .setExecutor(welcomeCommand);
+        Objects.requireNonNull(getCommand("welcome"), "Command welcome is not defined in plugin.yml")
+            .setTabCompleter(welcomeCommand);
+
         getLogger().info(
             "CustomServerMessages enabled. join=" + settings.joinEnabled()
                 + ", joinGroupRules=" + settings.joinGroupRules().size()
                 + ", firstJoin=" + settings.firstJoinEnabled()
                 + ", firstJoinReward=" + settings.firstJoinRewardEnabled()
+                + ", welcome=" + settings.welcomeEnabled()
                 + ", quit=" + settings.quitEnabled()
                 + ", quitGroupRules=" + settings.quitGroupRules().size()
                 + ", kick=" + settings.kickEnabled()
@@ -77,6 +86,10 @@ public final class CustomServerMessagesPlugin extends JavaPlugin implements Comm
 
     public LuckPermsHook luckPermsHook() {
         return luckPermsHook;
+    }
+
+    public WelcomeService welcomeService() {
+        return welcomeService;
     }
 
     @Override
@@ -130,6 +143,7 @@ public final class CustomServerMessagesPlugin extends JavaPlugin implements Comm
         output = output.replace("{join_group_rules}", String.valueOf(settings.joinGroupRules().size()));
         output = output.replace("{first_join_enabled}", String.valueOf(settings.firstJoinEnabled()));
         output = output.replace("{first_join_reward}", String.valueOf(settings.firstJoinRewardEnabled()));
+        output = output.replace("{welcome_enabled}", String.valueOf(settings.welcomeEnabled()));
         output = output.replace("{quit_enabled}", String.valueOf(settings.quitEnabled()));
         output = output.replace("{quit_group_rules}", String.valueOf(settings.quitGroupRules().size()));
         output = output.replace("{kick_enabled}", String.valueOf(settings.kickEnabled()));

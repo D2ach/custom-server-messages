@@ -60,11 +60,16 @@ public final class PlayerMessageListener implements Listener {
         PluginSettings settings = plugin.settings();
         if (firstJoin && settings.firstJoinEnabled()) {
             broadcastJoinLines(settings.firstJoinLines(), player, "", firstJoin);
-            return;
+        } else if (settings.joinEnabled()) {
+            broadcastJoinLines(resolveJoinLines(player), player, "", firstJoin);
         }
 
-        if (settings.joinEnabled()) {
-            broadcastJoinLines(resolveJoinLines(player), player, "", firstJoin);
+        // Former Welcome plugin: interactive click button on first join.
+        if (firstJoin && settings.welcomeEnabled()) {
+            plugin.welcomeService().sendWelcomeButtonToOnlinePlayers(
+                player.getName(),
+                player.getUniqueId()
+            );
         }
     }
 
@@ -121,10 +126,13 @@ public final class PlayerMessageListener implements Listener {
         VanishHook vanish = plugin.vanishHook();
         VaultHook vault = plugin.vaultHook();
 
+        // Vault coin button only when Welcome interact button is off (avoid two buttons).
         boolean canAttachButton = attachWelcomeButton
+            && !settings.welcomeEnabled()
             && settings.firstJoinRewardEnabled()
             && vault.available();
-        if (attachWelcomeButton && settings.firstJoinRewardEnabled() && !vault.available()) {
+        if (attachWelcomeButton && !settings.welcomeEnabled()
+            && settings.firstJoinRewardEnabled() && !vault.available()) {
             plugin.getLogger().warning("Welcome button skipped: Vault economy is unavailable.");
         }
 

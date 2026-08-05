@@ -1,8 +1,8 @@
 name: CustomServerMessages
 version: ${version}
 main: top.morndream.customservermessages.CustomServerMessagesPlugin
-description: Customizes join, first-join, quit, and kick broadcast messages on Paper and Folia.
-author: ohmlnw007, Xin_Yu_Han
+description: Customizes join, first-join, quit, and kick messages; includes interactive welcome buttons.
+authors: [ohmlnw007, Xin_Yu_Han]
 api-version: "1.21"
 folia-supported: true
 softdepend: [LuckPerms, CMI, Vault]
@@ -12,7 +12,19 @@ commands:
     usage: /<command> [status|reload]
     aliases: [csmessages, csm]
     permission: customservermessages.admin
+  welcome:
+    description: Welcome button commands (reload, try, msg).
+    usage: /<command> [reload|try|msg <player>]
 permissions:
   customservermessages.admin:
     description: Allows using CustomServerMessages admin commands.
+    default: op
+  welcome.reload:
+    description: Reload configuration via /welcome reload.
+    default: op
+  welcome.try:
+    description: Send a test welcome button.
+    default: op
+  welcome.msg:
+    description: Allows typing /welcome msg <player>. Clicking the welcome button does not need this.
     default: op

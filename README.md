@@ -8,7 +8,7 @@
 [![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)](https://openjdk.org/)
 [![Paper](https://img.shields.io/badge/Paper-1.21+-00A98F?logo=minecraft&logoColor=white)](https://papermc.io/)
 [![Folia](https://img.shields.io/badge/Folia-Supported-2ecc71)](https://papermc.io/software/folia)
-[![Version](https://img.shields.io/badge/Version-1.0.0-blue)](https://github.com/D2ach/CustomServerMessages)
+[![Version](https://img.shields.io/badge/Version-1.1.0-blue)](https://github.com/D2ach/CustomServerMessages)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 **Author:** ohmlnw007, Xin_Yu_Han
@@ -22,10 +22,11 @@
 | **进出服消息** | 自定义 Join / First-Join / Quit / Kick，支持多行、`&` 与 `&#RRGGBB` 颜色 |
 | **LuckPerms** | 前缀 / 后缀 / 主组占位符；按权限组匹配专属加入、退出文案 |
 | **CMI Vanish** | 隐身进出服不广播；仅对 OP 延迟检测，普通玩家 / 新玩家零延迟 |
-| **欢迎领奖** | 欢迎语下方单独显示可点击按钮；**金币发给欢迎者**，可多次点，同一人对同一新人只发一次 |
+| **欢迎互动** | 新人进服发可点按钮；点击发欢迎语并静默发金币（无需 `welcome.msg` 权限） |
+| **欢迎领奖** | Vault 金币按钮（与自定义欢迎互动二选一；`welcome.enabled` 开启时不显示旧按钮） |
 | **Vault 经济** | 随机金币区间可配（默认 10–20） |
-| **热重载** | `/csm reload` 即时生效，无需重启 |
-
+| **热重载** | `/csm reload` 或 `/welcome reload` |
+ 
 ---
 
 ## 📦 环境要求
@@ -41,7 +42,7 @@
 
 ## 🚀 安装
 
-1. 下载 `CustomServerMessages-1.0.0.jar`
+1. 下载 `CustomServerMessages-1.1.0.jar`
 2. 放入服务器 `plugins/` 目录
 3. 启动或重载服务器
 4. 编辑 `plugins/CustomServerMessages/config.yml`
@@ -51,8 +52,10 @@
 
 ```bash
 ./gradlew jar
-# 产物：build/libs/CustomServerMessages-1.0.0.jar
+# 产物：build/libs/CustomServerMessages-1.1.0.jar
 ```
+
+如果服务器装有其他注册 `/welcome` 的插件，请先卸载或更改其命令，避免冲突。
 
 ---
 
@@ -62,10 +65,16 @@
 |------|------|------|
 | `/customservermessages status` | `/csmessages`、`/csm` | 查看插件与集成状态 |
 | `/customservermessages reload` | 同上 | 重载配置并重新挂钩依赖 |
+| `/welcome reload` | — | 重载配置（需 `welcome.reload`） |
+| `/welcome try` | — | 发送测试欢迎按钮 |
+| `/welcome msg <玩家>` | — | 以自己的名义广播欢迎语 |
 
 | 权限 | 默认 | 说明 |
 |------|------|------|
 | `customservermessages.admin` | OP | 使用管理命令 |
+| `welcome.reload` | OP | `/welcome reload` |
+| `welcome.try` | OP | `/welcome try` |
+| `welcome.msg` | OP | 手打 `/welcome msg`；**点按钮不需要此权限** |
 
 ---
 

@@ -33,6 +33,18 @@ public final class PluginSettings {
     private boolean kickEnabled;
     private List<String> kickLines = List.of();
 
+    /** Custom interactive welcome button and silent Vault reward. */
+    private boolean welcomeEnabled;
+    private String welcomeButton;
+    private String welcomeButtonHover;
+    private String welcomeMessageTemplate;
+    private int welcomeRewardMin;
+    private int welcomeRewardMax;
+    private Duration welcomeRewardButtonLifetime = Duration.ofMinutes(10);
+    private String welcomeReloadMessage;
+    private String welcomeErrorMessage;
+    private String welcomePlayerOnlyMessage;
+
     public void load(FileConfiguration config) {
         enabled = config.getBoolean("enabled", true);
         sendToConsole = config.getBoolean("send-to-console", false);
@@ -43,7 +55,8 @@ public final class PluginSettings {
 
         firstJoinEnabled = config.getBoolean("first-join.enabled", true);
         firstJoinLines = new ArrayList<>(config.getStringList("first-join.lines"));
-        firstJoinRewardEnabled = config.getBoolean("first-join.reward.enabled", true);
+        // Default false after Welcome merge to avoid two first-join buttons.
+        firstJoinRewardEnabled = config.getBoolean("first-join.reward.enabled", false);
         firstJoinRewardMin = config.getInt("first-join.reward.min", 10);
         firstJoinRewardMax = config.getInt("first-join.reward.max", 20);
         firstJoinRewardButton = config.getString("first-join.reward.button", "&a&l[点击欢迎]");
@@ -65,6 +78,36 @@ public final class PluginSettings {
 
         kickEnabled = config.getBoolean("kick.enabled", true);
         kickLines = new ArrayList<>(config.getStringList("kick.lines"));
+
+        welcomeEnabled = config.getBoolean("welcome.enabled", true);
+        welcomeButton = config.getString(
+            "welcome.button",
+            "&l &#ffffff&l[&l &#b0e8ff&l点&#95d8f4&l击&#77cdf1&l欢&#6ed0fa&l迎&l &#ebf8ff&l]"
+        );
+        welcomeButtonHover = config.getString(
+            "welcome.button-hover",
+            "&l &l &#e8eaff&l[&l &#e2ecff&l点&#dcedff&l击&#d5efff&l欢&#cff1ff&l迎&#c9f2ff&l新&#c3f4ff&l玩&#bcf5ff&l家&l &#b6f7ff&l]"
+        );
+        welcomeMessageTemplate = config.getString(
+            "welcome.message",
+            "   &#ffce6d&l欢&#fecf6d&l迎&#fecf6c&l新&#fdd06c&l玩&#fdd06b&l家&#ffffff [new] &#f9d368&l进&#f8d468&l入&#f8d467&l服&#f7d567&l务&#f7d566&l器&l &#f6d666&l!"
+        );
+        welcomeRewardMin = config.getInt("welcome.reward.min", 10);
+        welcomeRewardMax = config.getInt("welcome.reward.max", 20);
+        welcomeRewardButtonLifetime = Duration.ofMinutes(
+            Math.max(1, config.getInt("welcome.reward.button-lifetime-minutes", 10))
+        );
+        String commandPrefix = config.getString("welcome.messages.prefix", "&f[&3欢迎系统&f] ");
+        welcomeReloadMessage = commandPrefix
+            + config.getString("welcome.messages.reload", "&a欢迎配置已重载。");
+        welcomeErrorMessage = commandPrefix + config.getString(
+            "welcome.messages.error",
+            "&c你没有权限，或命令不存在，或参数不完整。"
+        );
+        welcomePlayerOnlyMessage = commandPrefix + config.getString(
+            "welcome.messages.player-only",
+            "&c这个子命令只能由玩家执行。"
+        );
     }
 
     private static List<GroupMessageRule> loadGroupMessageRules(FileConfiguration config, String path) {
@@ -169,5 +212,45 @@ public final class PluginSettings {
 
     public List<String> kickLines() {
         return kickLines;
+    }
+
+    public boolean welcomeEnabled() {
+        return welcomeEnabled;
+    }
+
+    public String welcomeButton() {
+        return welcomeButton;
+    }
+
+    public String welcomeButtonHover() {
+        return welcomeButtonHover;
+    }
+
+    public String welcomeMessageTemplate() {
+        return welcomeMessageTemplate;
+    }
+
+    public int welcomeRewardMin() {
+        return welcomeRewardMin;
+    }
+
+    public int welcomeRewardMax() {
+        return welcomeRewardMax;
+    }
+
+    public Duration welcomeRewardButtonLifetime() {
+        return welcomeRewardButtonLifetime;
+    }
+
+    public String welcomeReloadMessage() {
+        return welcomeReloadMessage;
+    }
+
+    public String welcomeErrorMessage() {
+        return welcomeErrorMessage;
+    }
+
+    public String welcomePlayerOnlyMessage() {
+        return welcomePlayerOnlyMessage;
     }
 }

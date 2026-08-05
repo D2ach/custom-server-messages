@@ -60,6 +60,33 @@ public final class VaultHook {
         welcomeRewardClaims.putIfAbsent(joinedPlayerId, ConcurrentHashMap.newKeySet());
     }
 
+    /**
+     * Pays a one-time random reward to the clicker for welcoming {@code joinedId}.
+     * No chat tip on success or re-click.
+     */
+    public void trySilentWelcomeReward(PluginSettings settings, Player clicker, UUID joinedId) {
+        if (clicker.getUniqueId().equals(joinedId)) {
+            return;
+        }
+        if (vaultEconomy == null) {
+            logger.warning("Welcome reward skipped: Vault economy is unavailable.");
+            return;
+        }
+
+        Set<UUID> claimed = welcomeRewardClaims.computeIfAbsent(joinedId, ignored -> ConcurrentHashMap.newKeySet());
+        if (!claimed.add(clicker.getUniqueId())) {
+            return;
+        }
+
+        int min = Math.min(settings.welcomeRewardMin(), settings.welcomeRewardMax());
+        int max = Math.max(settings.welcomeRewardMin(), settings.welcomeRewardMax());
+        int amount = ThreadLocalRandom.current().nextInt(min, max + 1);
+        if (depositMoney(clicker, amount)) {
+            return;
+        }
+        claimed.remove(clicker.getUniqueId());
+    }
+
     public Component buildWelcomeButton(PluginSettings settings, UUID joinedId, String joinedName) {
         return serializer.deserialize(nullToEmpty(settings.firstJoinRewardButton()))
             .hoverEvent(HoverEvent.showText(serializer.deserialize(nullToEmpty(settings.firstJoinRewardButtonHover()))))
@@ -103,13 +130,14 @@ public final class VaultHook {
         }
 
         String message = settings.firstJoinRewardPlayerMessage();
-        if (message != null && !message.isBlank()) {
-            clicker.sendMessage(serializer.deserialize(
-                message
-                    .replace("<player>", joinedName)
-                    .replace("<reward>", String.valueOf(amount))
-            ));
+        if (message == null || message.isBlank()) {
+            return;
         }
+        clicker.sendMessage(serializer.deserialize(
+            message
+                .replace("<player>", joinedName)
+                .replace("<reward>", String.valueOf(amount))
+        ));
     }
 
     private boolean depositMoney(Player player, int amount) {
